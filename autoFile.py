@@ -1,11 +1,13 @@
 import os
 
-filePath = '/Users/jiaxiansheng/Github/blob'
+filePath = os.getcwd()
 
-
+# 读取第一级的文件和目录
 def readFile(fo):
-  rootdir = '/Users/jiaxiansheng/Github/blob/docs'
+  rootdir = filePath + '/docs'
   list = os.listdir(rootdir) #列出文件夹下所有的目录与文件
+  list = sorted(list,  key=lambda x: os.path.getctime(os.path.join(rootdir, x)))
+  print(list)
   for i in range(0,len(list)):
       path = os.path.join(rootdir,list[i])
       if os.path.isdir(path):
@@ -16,7 +18,7 @@ def readFile(fo):
       elif os.path.isfile(path):
         checkFile(path,fo)
 
-
+# 递归读取二级甚至更深的目录和文件
 def readDeepFile(prefix,fo,pathDir):
     list = os.listdir(pathDir) #列出文件夹下所有的目录与文件
     for i in range(0,len(list)):
@@ -28,6 +30,7 @@ def readDeepFile(prefix,fo,pathDir):
       elif os.path.isfile(path):
         checkFile(path,fo)
 
+# 判断文件是否是markdown文件
 def checkFile(file,fo):
     root, extension = os.path.splitext(file)
     if(extension == ".md"):
@@ -37,7 +40,7 @@ def checkFile(file,fo):
 
 
 def writeFile():
-  fo = open("/Users/jiaxiansheng/Github/blob/README.md", "w")
+  fo = open(filePath + "/README.md", "w")
   readFile(fo) 
   # 关闭打开的文件
   fo.close()      

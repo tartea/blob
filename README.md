@@ -2,18 +2,6 @@
 ------
 - [docker端口映射](/docs/docker/docker端口映射.md)
 
-## 面试笔记
-------
-- [mysql题目](/docs/面试笔记/mysql题目.md)
-- [redis题目](/docs/面试笔记/redis题目.md)
-
-## java虚拟机
-------
-- [编译jdk12](/docs/java虚拟机/编译jdk12.md)
-- [内存管理](/docs/java虚拟机/内存管理.md)
-- [垃圾回收器和内存分配策略](/docs/java虚拟机/垃圾回收器和内存分配策略.md)
-- [性能监控和故障处理工具](/docs/java虚拟机/性能监控和故障处理工具.md)
-
 ## JDK源码
 ------
 - [队列详解](/docs/JDK源码/队列详解.md)
@@ -116,5 +104,26 @@
 
 ## spring
 ------
-- [spring-async](/docs/spring/spring-async.md)
+### SpringCloud
+- [ribbon的使用](/docs/spring/SpringCloud/ribbon的使用.md)
+- [eureka安装与配置](/docs/spring/SpringCloud/eureka安装与配置.md)
+- [hystrix的一生](/docs/spring/SpringCloud/hystrix的一生.md)
+- [zuul的配置](/docs/spring/SpringCloud/zuul的配置.md)
+- [feign的复写](/docs/spring/SpringCloud/feign的复写.md)
+
+### SpringFramework
+- [spring注解Async的使用和注意事项](/docs/spring/SpringFramework/spring注解Async的使用和注意事项.md)
+
+
+## Java虚拟机
+------
+- [编译jdk12](/docs/Java虚拟机/编译jdk12.md)
+- [内存管理](/docs/Java虚拟机/内存管理.md)
+- [垃圾回收器和内存分配策略](/docs/Java虚拟机/垃圾回收器和内存分配策略.md)
+- [性能监控和故障处理工具](/docs/Java虚拟机/性能监控和故障处理工具.md)
+
+## 面试题
+------
+- [mysql题目](/docs/面试题/mysql题目.md)
+- [redis题目](/docs/面试题/redis题目.md)
 
