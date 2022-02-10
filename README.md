@@ -112,6 +112,7 @@
 ## git
 ------
 - [git配置](/docs/git/git配置.md)
+- [git配置github](/docs/git/git配置github.md)
 
 ## spring
 ------

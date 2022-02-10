@@ -19,7 +19,7 @@ git config user.name "jiawenhao"
 
 这样就可以只针对当前的项目了。
 
-同样也可以通过查看**.git**目录下的config文件，判断当前的username，如果文件中不存在username，那么就会使用系统默认的username
+可以通过使用`git config -e`或者查看**.git**目录下的config文件，查看当前git环境的配置
 
 ```
 [core]
@@ -40,9 +40,16 @@ git config user.name "jiawenhao"
 
 ```
 
-可以通过命令查看全局配置
+可以通过使用`git config --global -e`查看全局的配置
 
 ```
-git config --global -e
+[user]
+        name = jiaxiansheng
+        email = 1262466460@qq.com
+
+#[http]
+#        proxy = socks5://127.0.0.1:7890
+#[https]
+#        proxy = socks5://127.0.0.1:7890
 ```
 
