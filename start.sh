@@ -1,1 +1,1 @@
-nohup docsify serve ../wiki -p 3000 &
+nohup docsify serve ../blob -p 3000 &

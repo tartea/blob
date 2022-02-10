@@ -1,10 +1,10 @@
 import os
 
-filePath = '/Users/jiaxiansheng/wiki'
+filePath = '/Users/jiaxiansheng/Github/blob'
 
 
 def readFile(fo):
-  rootdir = '/Users/jiaxiansheng/wiki/dist'
+  rootdir = '/Users/jiaxiansheng/Github/blob/docs'
   list = os.listdir(rootdir) #列出文件夹下所有的目录与文件
   for i in range(0,len(list)):
       path = os.path.join(rootdir,list[i])
@@ -37,7 +37,7 @@ def checkFile(file,fo):
 
 
 def writeFile():
-  fo = open("/Users/jiaxiansheng/wiki/README.md", "w")
+  fo = open("/Users/jiaxiansheng/Github/blob/README.md", "w")
   readFile(fo) 
   # 关闭打开的文件
   fo.close()      
