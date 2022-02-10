@@ -105,9 +105,9 @@
 ## spring
 ------
 ### SpringCloud
-- [ribbon的使用](/docs/spring/SpringCloud/ribbon的使用.md)
 - [eureka安装与配置](/docs/spring/SpringCloud/eureka安装与配置.md)
 - [hystrix的一生](/docs/spring/SpringCloud/hystrix的一生.md)
+- [ribbon的使用](/docs/spring/SpringCloud/ribbon的使用.md)
 - [zuul的配置](/docs/spring/SpringCloud/zuul的配置.md)
 - [feign的复写](/docs/spring/SpringCloud/feign的复写.md)
 

@@ -5,8 +5,7 @@ filePath = os.getcwd()
 # 读取第一级的文件和目录
 def readFile(fo):
   rootdir = filePath + '/docs'
-  list = os.listdir(rootdir) #列出文件夹下所有的目录与文件
-  list = sorted(list,  key=lambda x: os.path.getctime(os.path.join(rootdir, x)))
+  list = getAndSortedFile(rootdir) #列出文件夹下所有的目录与文件
   print(list)
   for i in range(0,len(list)):
       path = os.path.join(rootdir,list[i])
@@ -20,7 +19,7 @@ def readFile(fo):
 
 # 递归读取二级甚至更深的目录和文件
 def readDeepFile(prefix,fo,pathDir):
-    list = os.listdir(pathDir) #列出文件夹下所有的目录与文件
+    list = getAndSortedFile(pathDir) #列出文件夹下所有的目录与文件
     for i in range(0,len(list)):
       path = os.path.join(pathDir,list[i])
       if os.path.isdir(path):
@@ -38,6 +37,9 @@ def checkFile(file,fo):
       if(not fileName.startswith("__")):
           fo.write("- [" +fileName.replace(".md",'')+"](" +file.replace(filePath,'')+")\n") 
 
+def getAndSortedFile(pathDir):
+    files = os.listdir(pathDir) #列出文件夹下所有的目录与文件
+    return sorted(files,  key=lambda x: os.path.getctime(os.path.join(pathDir, x)))
 
 def writeFile():
   fo = open(filePath + "/README.md", "w")
