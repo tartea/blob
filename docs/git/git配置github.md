@@ -82,3 +82,19 @@ git push
 
 ```
 
+### git将本地仓库提交到github
+
+```shell
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+```
+
+在github上创建一个仓库，然后使用下面的命令将本地的git关联到github
+
+```shell
+git remote add origin git@github.com:tartea/study-parent.git
+git push -u origin main
+```
+
