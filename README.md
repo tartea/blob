@@ -110,13 +110,6 @@
 - [feign的复写](/docs/spring/SpringCloud/feign的复写.md)
 
 
-## Java虚拟机
-------
-- [编译jdk12](/docs/Java虚拟机/编译jdk12.md)
-- [内存管理](/docs/Java虚拟机/内存管理.md)
-- [垃圾回收器和内存分配策略](/docs/Java虚拟机/垃圾回收器和内存分配策略.md)
-- [性能监控和故障处理工具](/docs/Java虚拟机/性能监控和故障处理工具.md)
-
 ## 面试题
 ------
 - [mysql题目](/docs/面试题/mysql题目.md)
@@ -126,4 +119,11 @@
 ------
 - [git配置](/docs/git/git配置.md)
 - [git配置github](/docs/git/git配置github.md)
+
+## java虚拟机
+------
+- [编译jdk12](/docs/java虚拟机/编译jdk12.md)
+- [内存管理](/docs/java虚拟机/内存管理.md)
+- [垃圾回收器和内存分配策略](/docs/java虚拟机/垃圾回收器和内存分配策略.md)
+- [性能监控和故障处理工具](/docs/java虚拟机/性能监控和故障处理工具.md)
 
