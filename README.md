@@ -97,22 +97,17 @@
 - [插入排序](/docs/排序算法/插入排序.md)
 - [冒泡排序](/docs/排序算法/冒泡排序.md)
 
-## git
-------
-- [git配置](/docs/git/git配置.md)
-- [git配置github](/docs/git/git配置github.md)
-
 ## spring
 ------
+### SpringFramework
+- [spring注解Async的使用和注意事项](/docs/spring/SpringFramework/spring注解Async的使用和注意事项.md)
+
 ### SpringCloud
 - [eureka安装与配置](/docs/spring/SpringCloud/eureka安装与配置.md)
 - [hystrix的一生](/docs/spring/SpringCloud/hystrix的一生.md)
 - [ribbon的使用](/docs/spring/SpringCloud/ribbon的使用.md)
 - [zuul的配置](/docs/spring/SpringCloud/zuul的配置.md)
 - [feign的复写](/docs/spring/SpringCloud/feign的复写.md)
-
-### SpringFramework
-- [spring注解Async的使用和注意事项](/docs/spring/SpringFramework/spring注解Async的使用和注意事项.md)
 
 
 ## Java虚拟机
@@ -126,4 +121,9 @@
 ------
 - [mysql题目](/docs/面试题/mysql题目.md)
 - [redis题目](/docs/面试题/redis题目.md)
+
+## git
+------
+- [git配置](/docs/git/git配置.md)
+- [git配置github](/docs/git/git配置github.md)
 
