@@ -100,3 +100,16 @@ string，list，hash，zset（sorted set），geo，布隆过滤器
 哨兵模式
 
 集群模式
+
+### redis不建议使用的命令
+
+- monitor命令，在控制台使用的使用会导致cpu的升高
+
+- hgetall、smember，lrange等这些命令不是一定不能使用，需要综合评估数据量，明确n的值，再去决定。比如hgetall，如果哈希元素n比较多的话，可以优先考虑使用**hscan**
+
+- 生产环境不能使用 keys指令
+
+- 禁止使用flushall、flushdb
+
+- 避免使用SORT、SINTER等复杂度过高的命令。
+
