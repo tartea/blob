@@ -33,20 +33,20 @@
 
 ## 数据库
 ------
+### greenplum
+- [orderBy排序](/docs/数据库/greenplum/orderBy排序.md)
+
 ### mysql实战45讲
 - [mysql锁](/docs/数据库/mysql实战45讲/mysql锁.md)
 - [事务的隔离](/docs/数据库/mysql实战45讲/事务的隔离.md)
 - [mysql索引的选择](/docs/数据库/mysql实战45讲/mysql索引的选择.md)
-- [执行过程](/docs/数据库/mysql实战45讲/执行过程.md)
 - [普通索引和唯一索引的区别](/docs/数据库/mysql实战45讲/普通索引和唯一索引的区别.md)
 - [深入浅出索引](/docs/数据库/mysql实战45讲/深入浅出索引.md)
 - [给字符串字段添加索引](/docs/数据库/mysql实战45讲/给字符串字段添加索引.md)
 - [mysql抖动的原因](/docs/数据库/mysql实战45讲/mysql抖动的原因.md)
 - [表数据删除了但是表文件大小不变](/docs/数据库/mysql实战45讲/表数据删除了但是表文件大小不变.md)
 - [日志系统](/docs/数据库/mysql实战45讲/日志系统.md)
-
-### greenplum
-- [orderBy排序](/docs/数据库/greenplum/orderBy排序.md)
+- [执行过程](/docs/数据库/mysql实战45讲/执行过程.md)
 
 
 ## 测试
@@ -110,6 +110,13 @@
 - [feign的复写](/docs/spring/SpringCloud/feign的复写.md)
 
 
+## java虚拟机
+------
+- [编译jdk12](/docs/java虚拟机/编译jdk12.md)
+- [内存管理](/docs/java虚拟机/内存管理.md)
+- [垃圾回收器和内存分配策略](/docs/java虚拟机/垃圾回收器和内存分配策略.md)
+- [性能监控和故障处理工具](/docs/java虚拟机/性能监控和故障处理工具.md)
+
 ## 面试题
 ------
 - [mysql题目](/docs/面试题/mysql题目.md)
@@ -119,11 +126,9 @@
 ------
 - [git配置](/docs/git/git配置.md)
 - [git配置github](/docs/git/git配置github.md)
+- [常用命令](/docs/git/常用命令.md)
 
-## java虚拟机
+## mysql
 ------
-- [编译jdk12](/docs/java虚拟机/编译jdk12.md)
-- [内存管理](/docs/java虚拟机/内存管理.md)
-- [垃圾回收器和内存分配策略](/docs/java虚拟机/垃圾回收器和内存分配策略.md)
-- [性能监控和故障处理工具](/docs/java虚拟机/性能监控和故障处理工具.md)
+- [常用命令](/docs/mysql/常用命令.md)
 
