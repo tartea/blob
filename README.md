@@ -132,3 +132,9 @@
 ------
 - [常用命令](/docs/mysql/常用命令.md)
 
+## kafka
+------
+- [mac安装kafka](/docs/kafka/mac安装kafka.md)
+- [_kafka概念](/docs/kafka/_kafka概念.md)
+- [_kafka基本使用教程](/docs/kafka/_kafka基本使用教程.md)
+
