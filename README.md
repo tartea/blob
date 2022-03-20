@@ -122,19 +122,19 @@
 - [mysql题目](/docs/面试题/mysql题目.md)
 - [redis题目](/docs/面试题/redis题目.md)
 
+## mysql
+------
+- [常用命令](/docs/mysql/常用命令.md)
+
 ## git
 ------
 - [git配置](/docs/git/git配置.md)
 - [git配置github](/docs/git/git配置github.md)
 - [常用命令](/docs/git/常用命令.md)
 
-## mysql
-------
-- [常用命令](/docs/mysql/常用命令.md)
-
 ## kafka
 ------
-- [mac安装kafka](/docs/kafka/mac安装kafka.md)
 - [_kafka概念](/docs/kafka/_kafka概念.md)
-- [_kafka基本使用教程](/docs/kafka/_kafka基本使用教程.md)
+- [mac安装kafka](/docs/kafka/mac安装kafka.md)
+- [kafka基本使用教程](/docs/kafka/kafka基本使用教程.md)
 
