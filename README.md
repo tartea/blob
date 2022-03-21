@@ -134,7 +134,6 @@
 
 ## kafka
 ------
-- [_kafka概念](/docs/kafka/_kafka概念.md)
 - [mac安装kafka](/docs/kafka/mac安装kafka.md)
 - [kafka基本使用教程](/docs/kafka/kafka基本使用教程.md)
 
