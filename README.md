@@ -126,12 +126,6 @@
 ------
 - [常用命令](/docs/mysql/常用命令.md)
 
-## git
-------
-- [git配置](/docs/git/git配置.md)
-- [git配置github](/docs/git/git配置github.md)
-- [常用命令](/docs/git/常用命令.md)
-
 ## kafka
 ------
 - [mac安装kafka](/docs/kafka/mac安装kafka.md)
@@ -140,4 +134,11 @@
 ## dubbo
 ------
 - [dubbo使用案例](/docs/dubbo/dubbo使用案例.md)
+
+## git
+------
+- [git配置](/docs/git/git配置.md)
+- [git配置github](/docs/git/git配置github.md)
+- [常用命令](/docs/git/常用命令.md)
+- [idea使用git回滚代码](/docs/git/idea使用git回滚代码.md)
 
