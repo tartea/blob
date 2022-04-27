@@ -31,6 +31,7 @@
 ------
 - [常用的api](/docs\idea\常用的api.md)
 - [项目创建](/docs\idea\项目创建.md)
+- [常见错误](/docs\idea\常见错误.md)
 
 ## java虚拟机
 ------
