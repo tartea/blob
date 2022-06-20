@@ -22,6 +22,7 @@
 - [git配置github](/docs/git/git配置github.md)
 - [idea使用git回滚代码](/docs/git/idea使用git回滚代码.md)
 - [常用命令](/docs/git/常用命令.md)
+- [IDEA撤回没有push的代码](/docs/git/IDEA撤回没有push的代码.md)
 
 ## hibernate
 ------

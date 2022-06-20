@@ -40,7 +40,8 @@ APPEND key1 key
 
 **数据模型**
 
-**set name javaHuang** 为例，因为 Redis 是 KV 的数据库，它是通过 hashtable 实现的（我们把这个叫做外层的哈希）。所以每个键值对都会有一个 dictEntry，里面指向了 key 和 value 的指针。next 指向下一个 dictEntry。源码如下：
+**set name javaHuang** 为例，因为 Redis 是 KV 的数据库，它是通过 hashtable 实现的（我们把这个叫做外层的哈希）。所以每个键值对都会有一个 dictEntry，里面指向了 key 和 value
+的指针。next 指向下一个 dictEntry。源码如下：
 
 ```
 typedef struct dictEntry {
@@ -117,7 +118,8 @@ OK
 
 SDS是Redis 中字符串的实现。
 
-在 3.2 以后的版本中，SDS 又有多种结构（sds.h）：sdshdr5、sdshdr8、sdshdr16、sdshdr32、sdshdr64，用于存储不同的长度的字符串，分别代表 2^5=32byte，2^8=256byte，2^16=65536byte=64KB，2^32byte=4GB。
+在 3.2 以后的版本中，SDS 又有多种结构（sds.h）：sdshdr5、sdshdr8、sdshdr16、sdshdr32、sdshdr64，用于存储不同的长度的字符串，分别代表
+2^5=32byte，2^8=256byte，2^16=65536byte=64KB，2^32byte=4GB。
 
 ```
 struct __attribute__ ((__packed__)) sdshdr8 {

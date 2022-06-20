@@ -10,13 +10,17 @@
 
 #### 自我保护机制
 
-自我保护机制主要在Eureka Client和Eureka Server之间存在网络分区的情况下发挥保护作用，在服务器端和客户端都有对应实现。假设在某种特定的情况下（如网络故障）, Eureka Client和Eureka Server无法进行通信，此时Eureka Client无法向Eureka Server发起注册和续约请求，Eureka Server中就可能因注册表中的服务实例租约出现大量过期而面临被剔除的危险，然而此时的Eureka Client可能是处于健康状态的（可接受服务访问），如果直接将注册表中大量过期的服务实例租约剔除显然是不合理的，自我保护机制提高了eureka的服务可用性。
+自我保护机制主要在Eureka Client和Eureka Server之间存在网络分区的情况下发挥保护作用，在服务器端和客户端都有对应实现。假设在某种特定的情况下（如网络故障）, Eureka Client和Eureka
+Server无法进行通信，此时Eureka Client无法向Eureka Server发起注册和续约请求，Eureka Server中就可能因注册表中的服务实例租约出现大量过期而面临被剔除的危险，然而此时的Eureka
+Client可能是处于健康状态的（可接受服务访问），如果直接将注册表中大量过期的服务实例租约剔除显然是不合理的，自我保护机制提高了eureka的服务可用性。
 
 > 当自我保护机制触发时，Eureka不再从注册列表中移除因为长时间没收到心跳而应该过期的服务，仍能查询服务信息并且接受新服务注册请求，也就是其他功能是正常的。这里思考下，如果eureka节点A触发自我保护机制过程中，有新服务注册了然后网络回复后，其他peer节点能收到A节点的新服务信息，数据同步到peer过程中是有网络异常重试的，也就是说，是能保证最终一致性的。
 
 #### 服务发现原理
 
-eureka server可以集群部署，多个节点之间会进行（异步方式）数据同步，保证数据最终一致性，Eureka Server作为一个开箱即用的服务注册中心，提供的功能包括：服务注册、接收服务心跳、服务剔除、服务下线等。需要注意的是，Eureka Server同时也是一个Eureka Client，在不禁止Eureka Server的客户端行为时，它会向它配置文件中的其他Eureka Server进行拉取注册表、服务注册和发送心跳等操作。
+eureka server可以集群部署，多个节点之间会进行（异步方式）数据同步，保证数据最终一致性，Eureka
+Server作为一个开箱即用的服务注册中心，提供的功能包括：服务注册、接收服务心跳、服务剔除、服务下线等。需要注意的是，Eureka Server同时也是一个Eureka Client，在不禁止Eureka
+Server的客户端行为时，它会向它配置文件中的其他Eureka Server进行拉取注册表、服务注册和发送心跳等操作。
 
 eureka server端通过`appName`和`instanceInfoId`来唯一区分一个服务实例，服务实例信息是保存在哪里呢？其实就是一个Map中：
 
@@ -28,23 +32,33 @@ private final ConcurrentHashMap<String, Map<String, Lease<InstanceInfo>>> regist
 
 #### 服务注册
 
-Service Provider启动时会将服务信息（InstanceInfo）发送给eureka server，eureka server接收到之后会写入registry中，服务注册默认过期时间`DEFAULT_DURATION_IN_SECS = 90`秒。InstanceInfo写入到本地registry之后，然后同步给其他peer节点，对应方法`com.netflix.eureka.registry.PeerAwareInstanceRegistryImpl#replicateToPeers`。
+Service Provider启动时会将服务信息（InstanceInfo）发送给eureka server，eureka
+server接收到之后会写入registry中，服务注册默认过期时间`DEFAULT_DURATION_IN_SECS = 90`
+秒。InstanceInfo写入到本地registry之后，然后同步给其他peer节点，对应方法`com.netflix.eureka.registry.PeerAwareInstanceRegistryImpl#replicateToPeers`
+。
 
 #### 服务续约
 
-Renew（服务续约）操作由Service Provider定期调用，类似于heartbeat。主要是用来告诉Eureka Server Service Provider还活着，避免服务被剔除掉。renew接口实现方式和register基本一致：首先更新自身状态，再同步到其它Peer，服务续约也就是把过期时间设置为当前时间加上duration的值。
+Renew（服务续约）操作由Service Provider定期调用，类似于heartbeat。主要是用来告诉Eureka Server Service
+Provider还活着，避免服务被剔除掉。renew接口实现方式和register基本一致：首先更新自身状态，再同步到其它Peer，服务续约也就是把过期时间设置为当前时间加上duration的值。
 
 > 注意：服务注册如果InstanceInfo不存在则加入，存在则更新；而服务预约只是进行更新，如果InstanceInfo不存在直接返回false。
 
 #### 服务下线
 
-Cancel（服务下线）一般在Service Provider shutdown的时候调用，用来把自身的服务从Eureka Server中删除，以防客户端调用不存在的服务，eureka从本地”删除“（设置为删除状态）之后会同步给其他peer，对应方法`com.netflix.eureka.registry.PeerAwareInstanceRegistryImpl#cancel`。
+Cancel（服务下线）一般在Service Provider shutdown的时候调用，用来把自身的服务从Eureka
+Server中删除，以防客户端调用不存在的服务，eureka从本地”删除“（设置为删除状态）之后会同步给其他peer，对应方法`com.netflix.eureka.registry.PeerAwareInstanceRegistryImpl#cancel`
+。
 
 #### 服务失效剔除
 
-Eureka Server中有一个EvictionTask，用于检查服务是否失效。Eviction（失效服务剔除）用来定期（默认为每60秒）在Eureka Server检测失效的服务，检测标准就是超过一定时间没有Renew的服务。默认失效时间为90秒，也就是如果有服务超过90秒没有向Eureka Server发起Renew请求的话，就会被当做失效服务剔除掉。失效时间可以通过`eureka.instance.leaseExpirationDurationInSeconds`进行配置，定期扫描时间可以通过`eureka.server.evictionIntervalTimerInMs`进行配置。
+Eureka Server中有一个EvictionTask，用于检查服务是否失效。Eviction（失效服务剔除）用来定期（默认为每60秒）在Eureka
+Server检测失效的服务，检测标准就是超过一定时间没有Renew的服务。默认失效时间为90秒，也就是如果有服务超过90秒没有向Eureka
+Server发起Renew请求的话，就会被当做失效服务剔除掉。失效时间可以通过`eureka.instance.leaseExpirationDurationInSeconds`
+进行配置，定期扫描时间可以通过`eureka.server.evictionIntervalTimerInMs`进行配置。
 
-服务剔除#evict方法中有很多限制，都是为了保证Eureka Server的可用性：比如自我保护时期不能进行服务剔除操作、过期操作是分批进行、服务剔除是随机逐个剔除，剔除均匀分布在所有应用中，防止在同一时间内同一服务集群中的服务全部过期被剔除，以致大量剔除发生时，在未进行自我保护前促使了程序的崩溃。
+服务剔除#evict方法中有很多限制，都是为了保证Eureka
+Server的可用性：比如自我保护时期不能进行服务剔除操作、过期操作是分批进行、服务剔除是随机逐个剔除，剔除均匀分布在所有应用中，防止在同一时间内同一服务集群中的服务全部过期被剔除，以致大量剔除发生时，在未进行自我保护前促使了程序的崩溃。
 
 ### 使用
 

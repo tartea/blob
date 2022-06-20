@@ -83,7 +83,7 @@ ArrayList 的数据结构是基于数组实现的，只不过这个数组不像�
 > 测试结果
 >
 > 通过数组转换：false
-> 		通过集合转换：true
+> 通过集合转换：true
 >
 > - public Object[] toArray() 返回的类型不一定就是 Object[]，其类型 取决于其返回的实际类型，毕竟 Object 是父类，它可以是其他任意类型。
 > - 子类实现和父类同名的方法，仅仅返回值不一致时，默认调用的是子类的实现方 法。
@@ -100,7 +100,8 @@ ArrayList 的数据结构是基于数组实现的，只不过这个数组不像�
 从以上的类图关系可以看到：
 
 1. 这两个 List 压根不同一个东西，而且 Arrasys 下的 List 是一个私有类，只能通过 asList 使用，不能单独创建。
-2. 另外还有这个 ArrayList 不能添加和删除，主要是因为它的实现方式，可以参考 Arrays 类中，这部分源码;`private static class ArrayList<E> extends AbstractList<E> implements RandomAccess, java.io.Serializable`
+2. 另外还有这个 ArrayList 不能添加和删除，主要是因为它的实现方式，可以参考 Arrays
+   类中，这部分源码;`private static class ArrayList<E> extends AbstractList<E> implements RandomAccess, java.io.Serializable`
 
 ![image-20211229224938528](https://images-1258301517.cos.ap-nanjing.myqcloud.com/images/202112292249560.png)
 
@@ -130,7 +131,8 @@ public boolean add(E e) {
 
 1. 判断长度充足;ensureCapacityInternal(size + 1);
 2. 当判断长度不足时，则通过扩大函数，进行扩容;grow(int minCapacity)
-3. 扩容的长度计算;int newCapacity = oldCapacity + (oldCapacity >> 1);，旧容量 + 旧容量右移 1 位，这相当于扩容了原来容量的(int)3/2。原来是10，扩容时:1010 + 1010 >> 1 = 1010 + 0101 = 10 + 5 = 15 ；原来是7，扩容时:0111 + 0111 >> 1 = 0111 + 0011 = 7 + 3 = 10
+3. 扩容的长度计算;int newCapacity = oldCapacity + (oldCapacity >> 1);，旧容量 + 旧容量右移 1 位，这相当于扩容了原来容量的(int)3/2。原来是10，扩容时:1010 +
+   1010 >> 1 = 1010 + 0101 = 10 + 5 = 15 ；原来是7，扩容时:0111 + 0111 >> 1 = 0111 + 0011 = 7 + 3 = 10
 4. 当扩容完以后，就需要进行把数组中的数据拷贝到新数组中，这个过程会用到 Arrays.copyOf(elementData, newCapacity);，但他的底层用到的 是;System.arraycopy
 
 #### 扩容函数
@@ -178,7 +180,7 @@ public void test_arraycopy() {
 }
 ```
 
-- 拷贝数组的过程并不复杂，主要是对 System.arraycopy 的操作。 
+- 拷贝数组的过程并不复杂，主要是对 System.arraycopy 的操作。
 - 上面就是把数组 oldArr 拷贝到 newArr，同时新数组的长度，采用和 ArrayList 一样的计算逻辑;oldArr.length + (oldArr.length >> 1)
 
 #### 指定位置插入

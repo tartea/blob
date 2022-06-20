@@ -297,7 +297,7 @@ public class ApiTest {
 }
 ```
 
->这里想要调用dubbo接口，需要引入注解@Reference
+> 这里想要调用dubbo接口，需要引入注解@Reference
 
 以上就是一个简单的使用dubbo的案例，想要看具体的可以参考[git@github.com:tartea/study-parent.git](git@github.com:tartea/study-parent.git)
 
@@ -307,7 +307,8 @@ public class ApiTest {
 
 ### 实现
 
-将`dubbo-provider`和`dubbo-consumer`模块中的依赖的`dubbo-api`都删除，然后在每个模块中定义自己的`ProviderService`方法，只是方法中的内容是相同的，然后启动`ApiTest`，可以发现依然可以调用
+将`dubbo-provider`和`dubbo-consumer`模块中的依赖的`dubbo-api`都删除，然后在每个模块中定义自己的`ProviderService`方法，只是方法中的内容是相同的，然后启动`ApiTest`
+，可以发现依然可以调用
 
 该操作可以证明能否调用和是否依赖相同的模块没有任何的关系，只要保证接口名称和方法相同就可以调用到了
 

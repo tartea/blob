@@ -34,26 +34,24 @@ bin log是用作日志归档使用的，因为它的机制是追加写，所以�
 
 #### 什么是两阶段提交，为什么需要两阶段提交，两阶段提交怎么保证数据库中两份日志间的逻辑一致性（什么叫逻辑一致性）
 
- 就是在提交事务的时候先对redo log做一个prepare的操作，然后等bin log也写入成功后，在对redo log做commit操作。
+就是在提交事务的时候先对redo log做一个prepare的操作，然后等bin log也写入成功后，在对redo log做commit操作。
 
 两阶段提交主要是为了保证数据的一致性
 
-如果在redo log记录阶段，mysql出现了crash，那么再次启动的时候，会发现只有redo log中存在一个XID（prepare阶段redo会在全局记录一个XID，后面的bin log也是记录一个同样的XID），那么事务会回滚，如果两个log上都存在了XID，那么事务会commit
+如果在redo log记录阶段，mysql出现了crash，那么再次启动的时候，会发现只有redo log中存在一个XID（prepare阶段redo会在全局记录一个XID，后面的bin
+log也是记录一个同样的XID），那么事务会回滚，如果两个log上都存在了XID，那么事务会commit
 
 #### 如果不是两阶段提交，先写redo log和先写bin log两种情况各会遇到什么问题
 
-1. **先写 redo log 后写 binlog**。假设在 redo log 写完，binlog 还没有写完的时候，MySQL 进程异常重启。由于我们前面说过的，redo log 写完之后，系统即使崩溃，仍然能够把数据恢复回来，所以恢复后这一行 c 的值是 1。但是由于 binlog 没写完就 crash 了，这时候 binlog 里面就没有记录这个语句。因此，之后备份日志的时候，存起来的 binlog 里面就没有这条语句。然后你会发现，如果需要用这个 binlog 来恢复临时库的话，由于这个语句的 binlog 丢失，这个临时库就会少了这一次更新，恢复出来的这一行 c 的值就是 0，与原库的值不同。
-2. **先写 binlog 后写 redo log**。如果在 binlog 写完之后 crash，由于 redo log 还没写，崩溃恢复以后这个事务无效，所以这一行 c 的值是 0。但是 binlog 里面已经记录了“把 c 从 0 改成 1”这个日志。所以，在之后用 binlog 来恢复的时候就多了一个事务出来，恢复出来的这一行 c 的值就是 1，与原库的值不同。
-
-
+1. **先写 redo log 后写 binlog**。假设在 redo log 写完，binlog 还没有写完的时候，MySQL 进程异常重启。由于我们前面说过的，redo log
+   写完之后，系统即使崩溃，仍然能够把数据恢复回来，所以恢复后这一行 c 的值是 1。但是由于 binlog 没写完就 crash 了，这时候 binlog 里面就没有记录这个语句。因此，之后备份日志的时候，存起来的 binlog
+   里面就没有这条语句。然后你会发现，如果需要用这个 binlog 来恢复临时库的话，由于这个语句的 binlog 丢失，这个临时库就会少了这一次更新，恢复出来的这一行 c 的值就是 0，与原库的值不同。
+2. **先写 binlog 后写 redo log**。如果在 binlog 写完之后 crash，由于 redo log 还没写，崩溃恢复以后这个事务无效，所以这一行 c 的值是 0。但是 binlog 里面已经记录了“把 c 从 0
+   改成 1”这个日志。所以，在之后用 binlog 来恢复的时候就多了一个事务出来，恢复出来的这一行 c 的值就是 1，与原库的值不同。
 
 ![mysql执行流程图](https://images-1258301517.cos.ap-nanjing.myqcloud.com/images/202201170955454.png)
 
-
-
-
-
-###  三大范式？
+### 三大范式？
 
 - 确保每列的原子性
 - 确保每列都和主键相关

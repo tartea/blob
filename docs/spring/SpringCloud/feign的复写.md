@@ -1,6 +1,7 @@
-Feign是一个声明式 WebService 客户端，使用Feign能够让编写Web Service 客户端更加简单，它的使用方法是定义一个接口，然后在上面添加注解，同时也支持JAX-RS标准的注解。Feign也支持可插拔式的编码器和解码器。
+Feign是一个声明式 WebService 客户端，使用Feign能够让编写Web Service
+客户端更加简单，它的使用方法是定义一个接口，然后在上面添加注解，同时也支持JAX-RS标准的注解。Feign也支持可插拔式的编码器和解码器。
 
-　　Spring Cloud 对 Fiegn 进行了封装，使其支持了Spring MVC 标准注解和HttpMessageConverts。Feign可以与Eureka和Ribbon组合使用以支持负载均衡。
+Spring Cloud 对 Fiegn 进行了封装，使其支持了Spring MVC 标准注解和HttpMessageConverts。Feign可以与Eureka和Ribbon组合使用以支持负载均衡。
 
 ### 代码实现
 

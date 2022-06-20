@@ -43,7 +43,9 @@ Supports limiting concurrent threads through the "concurrencyLimit" bean propert
 NOTE: This implementation does not reuse threads! Consider a thread-pooling TaskExecutor implementation instead, in particular for executing a large number of short-lived tasks
 ```
 
-从**SimpleAsyncTaskExecutor**的注释中可以清楚的了解到该线程池的线程数是无限的，所以在实际使用的过程中会导致任务的堆积，或者导致内存溢出，针对线程创建问题，SimpleAsyncTaskExecutor提供了限流机制，通过concurrencyLimit属性来控制开关，当concurrencyLimit>=0时开启限流机制，默认关闭限流机制即concurrencyLimit=-1，当关闭情况下，会不断创建新的线程来处理任务。基于默认配置，SimpleAsyncTaskExecutor并不是严格意义的线程池，达不到线程复用的功能。
+从**SimpleAsyncTaskExecutor**
+的注释中可以清楚的了解到该线程池的线程数是无限的，所以在实际使用的过程中会导致任务的堆积，或者导致内存溢出，针对线程创建问题，SimpleAsyncTaskExecutor提供了限流机制，通过concurrencyLimit属性来控制开关，当concurrencyLimit>
+=0时开启限流机制，默认关闭限流机制即concurrencyLimit=-1，当关闭情况下，会不断创建新的线程来处理任务。基于默认配置，SimpleAsyncTaskExecutor并不是严格意义的线程池，达不到线程复用的功能。
 
 ### 自定义线程池
 

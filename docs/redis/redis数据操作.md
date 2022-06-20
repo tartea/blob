@@ -63,7 +63,8 @@ Redis服务器使用的是惰性删除策略和定期删除策略。
 
 #### 定期删除策略的实现
 
-过期键的定期删除策略由`activeExpireCycle`函数实现，每当Redis服务器的周期性操作`serverCron`函数执行时，`activeExpireCycle`函数就会被调用，它在规定的时间内，分多次遍历服务器中的各个数据库，从数据库的`expires`字典中**随机检查**一部分键的过期时间，并删除其中的过期键。
+过期键的定期删除策略由`activeExpireCycle`函数实现，每当Redis服务器的周期性操作`serverCron`函数执行时，`activeExpireCycle`
+函数就会被调用，它在规定的时间内，分多次遍历服务器中的各个数据库，从数据库的`expires`字典中**随机检查**一部分键的过期时间，并删除其中的过期键。
 
 `activeExpireCycle`函数的大体流程为：
 
@@ -134,13 +135,15 @@ Redis服务器使用的是惰性删除策略和定期删除策略。
 
 LRU(Least recently used，最近最少使用)算法根据数据的历史访问记录来进行淘汰数据，其核心思想是“如果数据最近被访问过，那么将来被访问的几率也更高”。
 
-在服务器配置中保存了 lru 计数器 server.lrulock，会定时(redis 定时程序 serverCorn())更新，server.lrulock 的值是根据 server.unixtime 计算出来进行排序的，然后选择最近使用时间最久的数据进行删除。另外，从 struct redisObject 中可以发现，每一个 redis 对象都会设置相应的 lru。每一次访问数据，会更新对应redisObject.lru。
+在服务器配置中保存了 lru 计数器 server.lrulock，会定时(redis 定时程序 serverCorn())更新，server.lrulock 的值是根据 server.unixtime
+计算出来进行排序的，然后选择最近使用时间最久的数据进行删除。另外，从 struct redisObject 中可以发现，每一个 redis 对象都会设置相应的 lru。每一次访问数据，会更新对应redisObject.lru。
 
-在Redis中，LRU算法是一个近似算法，默认情况下，Redis会随机挑选5个键，并从中选择一个最久未使用的key进行淘汰。在配置文件中，按maxmemory-samples选项进行配置，选项配置越大，消耗时间就越长，但结构也就越精准。 
+在Redis中，LRU算法是一个近似算法，默认情况下，Redis会随机挑选5个键，并从中选择一个最久未使用的key进行淘汰。在配置文件中，按maxmemory-samples选项进行配置，选项配置越大，消耗时间就越长，但结构也就越精准。
 
 #### TTL淘汰
 
-Redis 数据集数据结构中保存了键值对过期时间的表，即 redisDb.expires。与 LRU 数据淘汰机制类似，TTL 数据淘汰机制中会先从过期时间的表中随机挑选几个键值对，取出其中 ttl ***的键值对淘汰。同样，TTL淘汰策略并不是面向所有过期时间的表中最快过期的键值对，而只是随机挑选的几个键值对。
+Redis 数据集数据结构中保存了键值对过期时间的表，即 redisDb.expires。与 LRU 数据淘汰机制类似，TTL 数据淘汰机制中会先从过期时间的表中随机挑选几个键值对，取出其中 ttl ***
+的键值对淘汰。同样，TTL淘汰策略并不是面向所有过期时间的表中最快过期的键值对，而只是随机挑选的几个键值对。
 
 #### 随机淘汰
 

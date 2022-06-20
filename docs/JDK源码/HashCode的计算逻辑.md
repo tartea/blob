@@ -55,8 +55,6 @@ public int hashCode() {
 1. 31是一个奇质数，如果选择偶数会导致乘积运算时数据溢出
 2. 另外在二进制中，2的5次方是32，那么也就是`31 * i == (i << 5) - i`。这主要是说乘积运算可以使用位移来提升性能，目前JVM虚拟机也会自动支持此类的优化。
 
-
-
 > Goodrich and Tamassia computed from over 50,000 English words (formed as the union of the word lists provided in two variants of Unix) that using the constants 31, 33, 37, 39, and 41 will produce fewer than 7 collisions in each case. This may be the reason that so many Java implementations choose such constants.
 
 这段话的意思是说使用超过5千个单词计算hashCode，这个hashCode的运算使用31、33、37、39和41作为乘积，得到碰撞结果，31被使用就很正常了。
@@ -151,7 +149,8 @@ public static Integer hashCode(String str, Integer multiplier) {
 
 除了以上看到哈希值在不同乘数的一个碰撞概率后，关于散列表也就是 hash， 还有一个非常重要的点，那就是要尽可能的让数据散列分布。只有这样才能减少 hash 碰撞次数。
 
-那么怎么看散列分布呢?如果我们能把 10 万个 hash 值铺到图表上，形成的一张 图，就可以看出整个散列分布。但是这样的图会比较大，当我们缩小看后，就成 一个了大黑点。所以这里我们采取分段统计，把 2 ^ 32 方分 64 个格子进行存 放，每个格子都会有对应的数量的 hash 值，最终把这些数据展示在图表上。
+那么怎么看散列分布呢?如果我们能把 10 万个 hash 值铺到图表上，形成的一张 图，就可以看出整个散列分布。但是这样的图会比较大，当我们缩小看后，就成 一个了大黑点。所以这里我们采取分段统计，把 2 ^ 32 方分 64 个格子进行存
+放，每个格子都会有对应的数量的 hash 值，最终把这些数据展示在图表上。
 
 #### 哈希值分段存放
 

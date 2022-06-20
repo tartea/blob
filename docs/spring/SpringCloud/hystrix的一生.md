@@ -2,23 +2,25 @@
 
 #### 雪崩效应
 
-长链路调用过程中, A->B->C.... 假设链路上 C 出现了调用缓慢->B也会延迟->A也会延迟,堵住的 A 请求会消耗占用系统的线程、IO 等资源. 当对 A 服务的请求越来越多，占用的计算机资源越来越多的时候，会导致系统瓶颈出现，造成其他的请求同样不可用，最终导致业务系统崩溃，这种现象称为雪崩效应。
+长链路调用过程中, A->B->C.... 假设链路上 C 出现了调用缓慢->B也会延迟->A也会延迟,堵住的 A 请求会消耗占用系统的线程、IO 等资源. 当对 A
+服务的请求越来越多，占用的计算机资源越来越多的时候，会导致系统瓶颈出现，造成其他的请求同样不可用，最终导致业务系统崩溃，这种现象称为雪崩效应。
 
 ![image-20220211143939291](https://images-1258301517.cos.ap-nanjing.myqcloud.com/images/202202111439322.png)
 
 #### 熔断机制 - 用于解决雪崩效应的问题
 
-当请求失败(超时或者其他异常)次数超过预设值时，熔断器自动打开. 
+当请求失败(超时或者其他异常)次数超过预设值时，熔断器自动打开.
 
-  这时所有经过这个熔断器的请求都会直接返回失败(不会堵住A请求)，并没有真正到达所依赖的服务上。
+这时所有经过这个熔断器的请求都会直接返回失败(不会堵住A请求)，并没有真正到达所依赖的服务上。
 
 ### Hystrix实现服务熔断与降级
 
 #### 实现原理
 
-Hystrix 是一种开关装置，类似于熔断保险丝。在消费者端安装一个 Hystrix 熔断器，当 Hystrix 监控到某个服务发生故障后熔断器会开启，将此服务访问链路断开。 
+Hystrix 是一种开关装置，类似于熔断保险丝。在消费者端安装一个 Hystrix 熔断器，当 Hystrix 监控到某个服务发生故障后熔断器会开启，将此服务访问链路断开。
 
-不过 Hystrix 并不会将该服务的消费者阻塞，或向消费者抛出异常，而是向消费者返回一个符合预期的备选响应（FallBack）。 通过 Hystrix 的熔断与降级功能，避免了服务雪崩的发生，同时也考虑到了用户体验。故 Hystrix 是系统的一种防御机制。
+不过 Hystrix 并不会将该服务的消费者阻塞，或向消费者抛出异常，而是向消费者返回一个符合预期的备选响应（FallBack）。 通过 Hystrix 的熔断与降级功能，避免了服务雪崩的发生，同时也考虑到了用户体验。故 Hystrix
+是系统的一种防御机制。
 
 #### 服务降级
 
@@ -157,11 +159,14 @@ class FallbackMethodControllerTest {
 
 #### 隔离的类型
 
-- **线程隔离 thread (默认)**：系统会**创建一个依赖线程池**，为**每个依赖请求分配一个独立的线程**，而每个依赖所拥有的线程数量是有上限的。当对该依赖的调用 请求数量达到上限后再有请求，则该请求阻塞。所以对某依赖的并发量取决于为该依赖 所分配的线程数量。
+- **线程隔离 thread (默认)**：系统会**创建一个依赖线程池**，为**每个依赖请求分配一个独立的线程**，而每个依赖所拥有的线程数量是有上限的。当对该依赖的调用
+  请求数量达到上限后再有请求，则该请求阻塞。所以对某依赖的并发量取决于为该依赖 所分配的线程数量。
 
   适用于: **耗时长, 高吞吐量**, 例如读数据库, 大计算.
 
-- **信号量隔离**：对依赖的调用所使用的线程仍为请求线程，即不会为依赖请求再新创建新的线程。但系统会为每种依赖分配一定数量的信号量，而每个依赖请求分配一个信号号。当对该依赖的调用请求数量达到上限后再有请求，则该请求阻塞。所以对某依赖的并发 量取决于为该依赖所分配的信号数量。
+- **信号量隔离**
+  ：对依赖的调用所使用的线程仍为请求线程，即不会为依赖请求再新创建新的线程。但系统会为每种依赖分配一定数量的信号量，而每个依赖请求分配一个信号号。当对该依赖的调用请求数量达到上限后再有请求，则该请求阻塞。所以对某依赖的并发
+  量取决于为该依赖所分配的信号数量。
 
   适用于:**耗时短, 低延迟**, 例如高频读取缓存
 
@@ -208,7 +213,8 @@ hystrix.command.default.circuitBreaker.forceClosed = (false)
 
 **熔断时间设置**
 
- 对于最终触发熔断超时时长的原因 , 除了 hystrix 的 timeoutInMilliseconds 自生有关 如果 ribbon 的 ReadTimeout 超时也会抛出读超时, 此时也会触发熔断. 如果有Zuul 设置超时时长原理类似
+对于最终触发熔断超时时长的原因 , 除了 hystrix 的 timeoutInMilliseconds 自生有关 如果 ribbon 的 ReadTimeout 超时也会抛出读超时, 此时也会触发熔断. 如果有Zuul
+设置超时时长原理类似
 
 ```yaml
 feign:
@@ -238,19 +244,22 @@ hystrix:
               timeoutInMilliseconds: 6000  # 断路器超时时间，默认1000ms 
 ```
 
-1. ribbon 中的 connectTimeout连接时长 和 ReadTimeout读取时长, **ribbon: 会被  feign:client 配置覆盖掉**
+1. ribbon 中的 connectTimeout连接时长 和 ReadTimeout读取时长, **ribbon: 会被 feign:client 配置覆盖掉**
 
-2. hystrix 中的 timeoutInMilliseconds熔断时间 **优先级: 特定接口>全局通用**, 特定配置可以在 yml或者通过@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="4000") 进行配置
+2. hystrix 中的 timeoutInMilliseconds熔断时间 **优先级: 特定接口>全局通用**, 特定配置可以在 yml或者通过@HystrixProperty(name="
+   execution.isolation.thread.timeoutInMilliseconds", value="4000") 进行配置
 
 3. 假设此接口开启了hystrix熔断器的前提下, **ReadTimeout 和 timeoutInMilliseconds 取时间短的进行读超时**, 读超时会触发熔断
 
 4. 开启熔断器的条件
 
-5. - 启动标签包含 @SpringCloudApplication 或者 @EnableCircuitBreaker 支持熔断器
-   - feign:hystrix:enabled: true(默认false不开启 ) OpenFeign全局接口开启熔断器, 使得fegin中的fallback标签生效
-   - hystrix:command:default:execution:timeout:enabled: true 使得@HystrixCommand(fallbackMethod = "回退方法")生效
+5.
+    - 启动标签包含 @SpringCloudApplication 或者 @EnableCircuitBreaker 支持熔断器
+    - feign:hystrix:enabled: true(默认false不开启 ) OpenFeign全局接口开启熔断器, 使得fegin中的fallback标签生效
+    - hystrix:command:default:execution:timeout:enabled: true 使得@HystrixCommand(fallbackMethod = "回退方法")生效
 
-6. ribbon还有**MaxAutoRetries对当前实例的重试次数**,**MaxAutoRetriesNextServer对切换实例的重试次数**, 如果ribbon的ReadTimeout超时,或者ConnectTimeout连接超时,会进行重试操作
+6. ribbon还有**MaxAutoRetries对当前实例的重试次数**,**MaxAutoRetriesNextServer对切换实例的重试次数**,
+   如果ribbon的ReadTimeout超时,或者ConnectTimeout连接超时,会进行重试操作
 
    通常 **timeoutInMilliseconds 需要配置的比ReadTimeout长,ReadTimeout比ConnectTimeout长**,否则还未重试,就熔断了
 

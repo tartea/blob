@@ -26,8 +26,7 @@
 
    安装xcode，一般本地存在```xcode-select```,但是在编译jdk的过程中可能会出错，这里可以先不安装**xcode**，待后面编译的时候报错在编译
 
-
-​	如果出现说scode-select路径不对的情况下，执行如下命令
+​ 如果出现说scode-select路径不对的情况下，执行如下命令
 
 ```
 sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
@@ -56,8 +55,6 @@ bash configure --enable-debug --with-jvm-variants=server --enable-dtrace --with-
 这里需要注意的是**-with-boot-jdk**，如果没有安装jdk的话，需要指定jdk的位置。
 
 编译成功后，可以在当前目录下执行**make imgaes**命令，如果机器好的话，大概几分钟就执行完成了
-
-
 
 #### make images过程中出现的错误
 
@@ -96,8 +93,6 @@ In file included from /Users/jiaxiansheng/develop/jdk/jdk12-06222165c35f/test/ho
 "=", "+", " ", "+=", "+=*", "*+", " +", "**", "++", ".", ",", ",,", ",+",
 ```
 
-
-
 ##### 第二个错误
 
 ```
@@ -125,8 +120,6 @@ old_java_vendor_url_bug != DEFAULT_VENDOR_URL_BUG
 ```
 strcmp(old_java_vendor_url_bug, DEFAULT_VENDOR_URL_BUG) != 0
 ```
-
-
 
 ##### 第三个错误
 
@@ -164,8 +157,6 @@ buffer.insts()->initialize_shared_locs((relocInfo*)locs_buf, (sizeof(locs_buf)) 
 
 就是添加括号
 
-
-
 ##### 第四个错误
 
 ```
@@ -195,8 +186,6 @@ s1 = s1; // self assignment
 ```
 
 注释掉当前行
-
-
 
 ##### 第五个错误
 
@@ -236,8 +225,6 @@ static MIDIPortRef outPort = (MIDIPortRef) NULL;
 ```
 
 将所有搜到**(MIDIClientRef) NULL**的地方都修改掉，大概是四个地方
-
-
 
 #### 编译成功
 
