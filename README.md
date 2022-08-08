@@ -49,9 +49,11 @@
 ## mysql
 ------
 - [常用命令](/docs/mysql/常用命令.md)
+- [ubuntu安装mysql](/docs/mysql/ubuntu安装mysql.md)
 
 ## nginx
 ------
+- [nginx配置说明](/docs/nginx/nginx配置说明.md)
 - [安装和基本使用](/docs/nginx/安装和基本使用.md)
 
 ## node
@@ -144,4 +146,8 @@
 ------
 - [mysql题目](/docs/面试题/mysql题目.md)
 - [redis题目](/docs/面试题/redis题目.md)
+
+## 微信小程序
+------
+- [消息订阅](/docs/微信小程序/消息订阅.md)
 
