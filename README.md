@@ -151,3 +151,8 @@
 ------
 - [消息订阅](/docs/微信小程序/消息订阅.md)
 
+## flutter使用小技巧
+------
+- [form表单](/docs/flutter使用小技巧/form表单.md)
+- [tab切换缓存](/docs/flutter使用小技巧/tab切换缓存.md)
+
